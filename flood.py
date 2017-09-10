@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-im_path = 'teste_.jpg' #'../TREM-HAND.tif'
+im_path = 'teste_.jpg' # '../TREM-HAND.tif'
 
 #
 #gim = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
