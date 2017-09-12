@@ -80,5 +80,5 @@ for i in range(len(f.floods)):
     li = f.floods[i][2]
     lj = f.floods[i][3]
     #print(ui,uj,li,lj)
-    cv2.imwrite(blocks_fn+str(i)+'.jpg',im[ui:li+1,uj:lj+1])
+    cv2.imwrite('blocks/'+blocks_fn+str(i)+'.jpg',im[ui:li+1,uj:lj+1])
 
