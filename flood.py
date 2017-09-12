@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-im_path = 'handwriting.png' # '../TREM-HAND.tif'
-blocks_fn = 'teste_'
+im_path = 'test2.png' # '../TREM-HAND.tif'
+blocks_fn = 'test2_'
+EPS = 3
 
 #
 #gim = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
@@ -68,10 +69,15 @@ class Flood:
                 s.append([k,l-1])
         return [kmin,lmin,kmax,lmax]
 
+#
+# Filters: [medianBlur][cv2.THRESH_BINARY|cv2.ADAPTIVE_THRESH_MEAN_C|cv2.ADAPTIVE_THRESH_GAUSSIAN_C]
+#
+
 im = cv2.imread(im_path,0)
 #im = cv2.medianBlur(im,5)
+_,th = cv2.threshold(im,127,255,cv2.THRESH_BINARY)
 #th = cv2.adaptiveThreshold(im,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
-th = cv2.adaptiveThreshold(im,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+#th = cv2.adaptiveThreshold(im,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
 f = Flood(th)
 f.flood_fill()
 for i in range(len(f.floods)):
@@ -80,5 +86,8 @@ for i in range(len(f.floods)):
     li = f.floods[i][2]
     lj = f.floods[i][3]
     #print(ui,uj,li,lj)
-    cv2.imwrite('blocks/'+blocks_fn+str(i)+'.jpg',im[ui:li+1,uj:lj+1])
+    #cv2.imwrite('blocks2/'+blocks_fn+str(i)+'.jpg',im[ui:li+1,uj:lj+1])
+    cv2.rectangle(im,(uj,ui),(lj,li),(0,255,0),2)
+cv2.imwrite(blocks_fn+'.jpg',im)
+cv2.imwrite(blocks_fn+'_th.jpg',th)
 
