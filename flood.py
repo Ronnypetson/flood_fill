@@ -40,7 +40,8 @@ class Flood:
             for j in range(c):
                 if not self.visited[i][j]:
                     k0,l0,k1,l1 = self.fill(i,j,self.grid[i][j])
-                    self.floods.append([k0,l0,k1,l1])
+                    if self.grid[i][j] != 255:
+                        self.floods.append([k0,l0,k1,l1])
     
     def fill(self,i,j,t):
         r,c = self.grid.shape
